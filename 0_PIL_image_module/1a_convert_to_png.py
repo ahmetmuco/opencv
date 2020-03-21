@@ -1,0 +1,65 @@
+#-*- coding: utf-8 -*-
+import time
+import os
+from PIL import Image
+
+start_time = time.time()
+size = (300, 300)
+version = 1
+img_index = 1
+img_class_1 = 1
+
+for file in os.listdir('.'):
+    if file.endswith('.jpg') or file.endswith('.png') or file.endswith('.jpeg') or file.endswith('.PNG'):
+        img = Image.open(file)
+        fileName, fileExt = os.path.splitext(file)
+        if img.height < 300 and img.width < 300:
+            img2 = img.resize(size,resample=0)
+            if img_index >= 10:
+                if img_index >= 100:
+                    if img_index >= 1000:
+                        img.thumbnail(size)
+                        img.save('pngs/0{0}00{1}{2}.png'.format(version,img_class_1,img_index))
+                        print('SAVED:',img_index)
+                        img_index += 1
+                    else:
+                        img2.thumbnail(size)
+                        img2.save('pngs/0{0}00{1}0{2}.png'.format(version,img_class_1,img_index))
+                        print('SAVED:',img_index)
+                        img_index += 1
+                else:
+                    img2.thumbnail(size)
+                    img2.save('pngs/0{0}00{1}00{2}.png'.format(version,img_class_1,img_index))
+                    print('SAVED:',img_index)
+                    img_index += 1
+            else:
+                img2.thumbnail(size)
+                img2.save('pngs/0{0}00{1}000{2}.png'.format(version,img_class_1,img_index))
+                print('SAVED:',img_index)
+                img_index += 1
+            continue
+        if img_index >= 10:
+            if img_index >= 100:
+                if img_index >= 1000:
+                    img.thumbnail(size)
+                    img.save('pngs/0{0}00{1}{2}.png'.format(version,img_class_1,img_index))
+                    print('SAVED:',img_index)
+                    img_index += 1
+                else:
+                    img.thumbnail(size)
+                    img.save('pngs/0{0}00{1}0{2}.png'.format(version,img_class_1,img_index))
+                    print('SAVED:',img_index)
+                    img_index += 1
+            else:
+                img.thumbnail(size)
+                img.save('pngs/0{0}00{1}00{2}.png'.format(version,img_class_1,img_index))
+                print('SAVED:',img_index)
+                img_index += 1
+        else:
+            img.thumbnail(size)
+            img.save('pngs/0{0}00{1}000{2}.png'.format(version,img_class_1,img_index))
+            print('SAVED:',img_index)
+            img_index += 1
+
+end_time = time.time()
+print(str(img_index-1) + ' pictures done in ' + str(end_time-start_time) + ' seconds.')
