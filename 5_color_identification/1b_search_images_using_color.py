@@ -104,7 +104,14 @@ def show_selected_images(images,color,threshold,colors_to_match):
             image_gray = cv2.cvtColor(images[i],cv2.COLOR_RGB2GRAY)
             ret,thresh = cv2.threshold(image_gray,50,255,cv2.THRESH_BINARY)
             contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-            images[i] = cv2.drawContours(images[i],contours,-1,(0,255,0),2)
+            # images[i] = cv2.drawContours(images[i],contours,-1,(0,255,0),2)
+            for c in contours:
+                # compute the bounding box of the contour and then draw the
+                # bounding box on both input images to represent where the two
+                # images differ
+                (x,y,w,h) = cv2.boundingRect(c)
+                cv2.rectangle(images[i],(x,y),(x + w,y + h),(0,255,0),2)
+                # cv2.rectangle(imageB,(x,y),(x + w,y + h),(0,0,255),2)
             # cv2.imshow('image_gray',images[i])
             # cv2.waitKey()
             # cv2.destroyAllWindows()

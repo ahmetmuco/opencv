@@ -11,7 +11,7 @@ import numpy as np
 @author = 'Ahmet Mucahit Tarakci'
 """
 
-IMAGE_DIRECTORY_PATH = './sigortalar/000_SET028_CAM1_OK__83_ (1).jpg'
+IMAGE_DIRECTORY_PATH = './sigortalar/orijinal/orijinal.jpg'
 
 # # construct the argument parser and parse the arguments
 # ap = argparse.ArgumentParser()
@@ -35,12 +35,11 @@ plt.imshow(image)
 image = image.reshape((image.shape[0] * image.shape[1], 3))
 
 # cluster the pixel intensities
-kmeans = KMeans(n_clusters=5)
+kmeans = KMeans(n_clusters=4)
 labels = kmeans.fit_predict(image)
-print(kmeans.cluster_centers_)
-print(kmeans.labels_)
-print(np.unique(labels))
-# print('labels: ' + str(labels.unique))
+print('cluster_centers_:',kmeans.cluster_centers_)
+print('kmeans.labels_:',kmeans.labels_)
+print('np.unique(labels):',np.unique(labels))
 
 def centroid_histogram(kmeans):
 	# grab the number of different clusters and create a histogram
