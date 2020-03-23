@@ -1,7 +1,6 @@
 from sklearn.cluster import KMeans
 from collections import Counter
 import cv2  # for resizing image
-import matplotlib.pyplot as plt
 import numpy as np
 import os
 
@@ -27,6 +26,7 @@ def get_dominant_color(image,k=4,image_processing_size=None):
                            interpolation=cv2.INTER_AREA)
         # cv2.imshow('img func',image)
 
+    # renklerin HEX karşılıkları
     def RGB2HEX(color):
         return "#{:02x}{:02x}{:02x}".format(int(color[0]),int(color[1]),int(color[2]))
 
@@ -54,10 +54,6 @@ def get_dominant_color(image,k=4,image_processing_size=None):
 
     # renk kodlarının int tipine dönüşümü
     all_colors = all_colors.astype(int)
-
-    # for i in range(len(all_colors)):
-    #     for y in range(3):
-    #         all_colors[i][y] = all_colors[i][y].astype(int)
 
     # atanan labellar ile RGB kodlarının eşlenmesi
     label_dict = {}
