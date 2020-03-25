@@ -10,7 +10,7 @@ import os
 @author = 'Ahmet Mucahit Tarakci'
 """
 
-IMAGE_DIRECTORY_PATH = './sigortalar/'
+IMAGE_DIRECTORY_PATH = './sigortalar/orijinal/'
 COLORS = {
     'GREEN': [0,128,0],
     'BLUE': [0,0,128],
@@ -22,7 +22,6 @@ images = []
 
 def get_image(image_path):
     image = cv2.imread(image_path)
-    # modified_image = cv2.resize(image,(600,400),interpolation=cv2.INTER_AREA)
     modified_image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
     return modified_image
 
@@ -44,21 +43,12 @@ def get_colors(image,number_of_colors,show_chart):
     def RGB2HEX(color):
         return "#{:02x}{:02x}{:02x}".format(int(color[0]),int(color[1]),int(color[2]))
 
-    # # resize 600x400
-    # modified_image = cv2.resize(image,(600,400),interpolation=cv2.INTER_AREA)
     modified_image = image.reshape(image.shape[0] * image.shape[1],3)
 
     # KMeans clustering
     kmeans = KMeans(n_clusters=number_of_colors)
     labels = kmeans.fit_predict(modified_image)
     print(kmeans.labels_)
-    # modified_image = cv2.cvtColor(modified_image,cv2.COLOR_RGB2GRAY)
-    # ret,thresh = cv2.threshold(modified_image,50,255,cv2.THRESH_BINARY)
-    # contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    # modified_image = cv2.drawContours(modified_image,contours,-1,(0,255,0),2)
-    # cv2.imshow('modified_image',modified_image)
-    # cv2.waitKey()
-    # cv2.destroyAllWindows()
     counts = Counter(labels)
 
     center_colors = kmeans.cluster_centers_
@@ -101,21 +91,15 @@ def show_selected_images(images,color,threshold,colors_to_match):
                                         threshold=threshold,
                                         number_of_colors=colors_to_match)
         if selected:
-            image_gray = cv2.cvtColor(images[i],cv2.COLOR_RGB2GRAY)
-            ret,thresh = cv2.threshold(image_gray,50,255,cv2.THRESH_BINARY)
-            contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-            # images[i] = cv2.drawContours(images[i],contours,-1,(0,255,0),2)
-            for c in contours:
-                # compute the bounding box of the contour and then draw the
-                # bounding box on both input images to represent where the two
-                # images differ
-                (x,y,w,h) = cv2.boundingRect(c)
-                cv2.rectangle(images[i],(x,y),(x + w,y + h),(0,255,0),2)
-                # cv2.rectangle(imageB,(x,y),(x + w,y + h),(0,0,255),2)
-            # cv2.imshow('image_gray',images[i])
-            # cv2.waitKey()
-            # cv2.destroyAllWindows()
-
+            # image_gray = cv2.cvtColor(images[i],cv2.COLOR_RGB2GRAY)
+            # ret,thresh = cv2.threshold(image_gray,50,255,cv2.THRESH_BINARY)
+            # contours,hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+            # for c in contours:
+            #     # compute the bounding box of the contour and then draw the
+            #     # bounding box on both input images to represent where the two
+            #     # images differ
+            #     (x,y,w,h) = cv2.boundingRect(c)
+            #     cv2.rectangle(images[i],(x,y),(x + w,y + h),(0,255,0),2)
             plt.subplot(2,len(images)/2,index)
             plt.imshow(images[i])
             print(str(index) + ' image selected.')
@@ -126,6 +110,6 @@ def show_selected_images(images,color,threshold,colors_to_match):
 # Variable 'selected_color' can be any of COLORS['GREEN'], COLORS['BLUE'] or COLORS['YELLOW']
 plt.figure(figsize=(10,5))
 show_selected_images(images=images,
-                     color=COLORS['RED'],
+                     color=COLORS['BLUE'],
                      threshold=60,
                      colors_to_match=5)

@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 
 """
-
 @author = 'Ahmet Mucahit Tarakci'
 """
 
