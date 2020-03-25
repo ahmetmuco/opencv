@@ -1,29 +1,32 @@
 import extcolors
-import time
 
 """
 @author = 'Ahmet Mucahit Tarakci'
 """
 
-start_time = time.time()
-
+# Örnek resmimizin yolu
 img_path = './sigortalar/orijinal/orijinal.jpg'
 
-def colors(img_path):
+def ext_colors(img_path):
+    # Renkler ve piksel sayılarının ataması
     colors, pixel_count = extcolors.extract(img_path)
-    print(colors)
+
+    # Renklerin RGB değerleri ve piksel sayıları
+    for i in range(len(colors)):
+        print(colors[i])
     print('pixel_count:',pixel_count)
     print()
     print('-----returns as RGB-----')
 
+    # Renklerin metin çıktısı
     i = 0
     while i < len(colors):
         print(str(colors[i][0]) + ': %' + str(round(((colors[i][1])/pixel_count)*100.0,2)))
         i += 1
 
-    # extcolors.image_result(colors,100,img_path)
+    # Renklerin görsel çıktısı
+    extcolors.image_result(colors,100,img_path)
     return colors
-# returns as RGB
-colors(img_path=img_path)
-end_time = time.time()
-print('Done in ' + str(round(end_time - start_time,2)) + ' seconds.')
+
+# RGB formatında döndürür
+ext_colors(img_path=img_path)
