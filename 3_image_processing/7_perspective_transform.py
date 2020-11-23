@@ -59,12 +59,14 @@ def four_point_transform(image,pts):
     return warped
 
 
-image = cv2.imread('001000001_crop.jpg',1)
-# image_plt = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-# plt.imshow(image_plt,cmap='gray',interpolation='bicubic')
-# plt.show()
+# image = cv2.imread('001000008_crop.jpg',1)
+image = cv2.imread('IMG-20160501-WA0010.jpg',1)
+image_plt = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+plt.imshow(image_plt,cmap='gray',interpolation='bicubic')
+plt.show()
 # points in the top-left, top-right, bottom-right, and bottom-left order
-pts = [(77,117),(820,117),(820,640),(117,640)]
+# pts = [(77,117),(820,117),(820,640),(77,640)]  # sigorta kutusu noktaları
+pts = [(131,48),(840,135),(53,475),(861,527)]   # örnek foto noktaları
 pts = np.array(pts)
 # apply the four point tranform to obtain a "birds eye view" of
 # the image
